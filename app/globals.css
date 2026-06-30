@@ -1,18 +1,122 @@
 @import "tailwindcss";
-:root{
-  --light-gold: #E6C58A;
-  --dim-gold:#d4af7a;
+
+:root {
+  /* ── Colors ── */
+  --light-gold: #e6c58a;
+  --dim-gold: #d4af7a;
   --black: #1e1d1d;
+  --darker-black: #0a0a0a; /* page background */
   --dark-gray: #2b2b2b;
-  --light-gray:#9a9a9a;
+  --light-gray: #9a9a9a;
   --white: #fefefe;
-}
-:root {
+
+  /* ── Fonts ── */
   --font-small: "DM Sans", sans-serif;
-  --font-big:"DM Sans", sans-serif;
-  /* --font-big: "Forum", serif; */
+  --font-big: "Forum", serif;
+
+  /* ── Text sizes ── */
+  --text-big: clamp(3.2rem, 2rem + 2.5vw, 6rem);    /* section titles        */
+  --text-title: clamp(2.8rem, 1.6rem + 2vw, 4.2rem); /* card / sub titles     */
+  --text-medium: 1.6rem;                             /* normal paragraph text */
+  --text-small: 1.2rem;                              /* tags / tiny text      */
+
+  /* ── Animations ── */
+  --anim-float: moveFloat 5s linear infinite;
+  --anim-fade-up: fadeUp 0.8s ease forwards;
 }
-:root {
-  --background: #491313;
-  --foreground: #fefefe;
+
+/* 1rem = 10px */
+html {
+  font-size: 10px;
+}
+
+body {
+  background: var(--darker-black);
+  color: var(--white);
+  font-family: var(--font-small);
+}
+
+@keyframes moveFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(30px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer components {
+  /* ── Standardized link: animated double-border underline ── */
+  .link-gold {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.25rem;
+    font-family: var(--font-small);
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    color: var(--light-gold);
+    transition: color 250ms;
+  }
+  .link-gold::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    border-block: 1px solid var(--light-gold);
+    transform: scaleX(0.2);
+    opacity: 0;
+    transition: transform 500ms, opacity 500ms;
+  }
+  .link-gold:hover {
+    color: var(--white);
+  }
+  .link-gold:hover::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  /* ── Standardized button: gold fill rises on hover, label slides up ── */
+  .btn-gold {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    display: inline-block;
+    cursor: pointer;
+    padding: 12px 45px;
+    font-family: var(--font-small);
+    font-size: var(--text-small);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-decoration: none;
+    background: transparent;
+    color: var(--light-gold);
+    border: 2px solid var(--light-gold);
+    transition: color 250ms;
+  }
+  .btn-gold::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 200%;
+    border-radius: 9999px;
+    z-index: -1;
+    background: var(--light-gold);
+    transition: bottom 500ms;
+  }
+  .btn-gold:hover {
+    color: var(--darker-black);
+  }
+  .btn-gold:hover::before {
+    bottom: -50%;
+  }
 }
