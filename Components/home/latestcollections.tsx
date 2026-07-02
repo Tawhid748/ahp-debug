@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { SectionHeader } from "../ui";
 
 const products = [
   { name: "Spectre Collection", image: "/patterns/index-page/collections/1.png" },
@@ -274,6 +275,8 @@ export default function LatestCollections() {
           <p className="font-[family-name:var(--font-small)] font-bold uppercase tracking-[0.4em] text-[length:var(--text-small)] text-[var(--light-gold)] mb-3">
             Collections
           </p>
+           <SectionHeader label={""} title={""}         
+                              />
           <h2 className="font-[family-name:var(--font-big)] font-normal leading-[1.2] text-[length:var(--text-big)] text-[var(--white)] mb-10">
             Our Latest Collections
           </h2>
