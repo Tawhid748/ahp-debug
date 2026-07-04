@@ -1,17 +1,5 @@
 "use client";
 
-// Client island — the interactive accordion. Owns the shared openIndex so
-// only one panel is open at a time, and keeps the smooth max-height/opacity
-// animation and chevron rotation. Receives the FAQ data from the server shell.
-//
-// Old vars mapped to the new globals:
-//   --gold         -> var(--light-gold)
-//   --gold-border  -> var(--light-gold)/35
-//   --bg-faq-item  -> var(--darker-black)   (resting row)
-//   --bg-section   -> var(--black)          (open/hover row)
-//   --font-display -> var(--font-big)
-//   body-muted     -> var(--font-small) + var(--light-gray)
-
 import { useState } from "react";
 
 interface FaqItem {

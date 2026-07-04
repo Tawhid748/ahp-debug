@@ -1,6 +1,3 @@
-// Server Component — no "use client".
-// Holds the section wrapper, title, ornamental separator, and the FAQ data.
-// Only the interactive accordion is delegated to the FaqAccordion client island.
 
 import FaqAccordion from "./faqaccordion";
 
