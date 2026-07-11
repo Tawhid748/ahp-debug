@@ -56,10 +56,20 @@ export type Product = {
   packageHeight?: number;
   dimensionUnit?: string;
   weightUnit?: string;
+
+  // ── Detail-page fields (fill in later / via the admin panel) ──
+  // All optional — the page shows a dash or a placeholder when absent, so
+  // existing data works untouched.
+  price?: number;        // e.g. 95.40
+  fragrance?: string;    // e.g. "Amber Oud Private Edition"
+  type?: string;         // e.g. "Eau De Parfum"
+  volume?: string;       // e.g. "60ml"
+  images?: string[];     // gallery — admin panel adds these; empty = Coming Soon
 };
 
 // Stable id for a product — falls back to sku when _id isn't present.
-export const productId = (p: Product): string => p._id ?? p.sku;
+// Always returns a string (raw skus can be numeric).
+export const productId = (p: Product): string => String(p._id ?? p.sku ?? "");
 
 export const parseNotes = (p: Product): string[] =>
   [
@@ -79,3 +89,11 @@ export const parseNotes = (p: Product): string[] =>
 // No runtime parsing, so malformed-line errors are impossible.
 // ─────────────────────────────────────────────────────────────────────────────
 export const PRODUCTS: Product[] = RAW as Product[];
+
+// Look up a single product by its id (or sku). Used by /products/[id].
+// String-coerced on both sides: raw JSON skus can be numbers, while the URL
+// param is always a string, so a strict === would never match.
+export const getProductById = (id: string): Product | undefined => {
+  const target = String(id);
+  return PRODUCTS.find((p) => String(productId(p)) === target);
+};
